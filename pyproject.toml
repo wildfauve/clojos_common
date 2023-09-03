@@ -1,0 +1,45 @@
+[tool.poetry]
+name = "clojos-common"
+version = "0.1.6"
+description = ""
+authors = ["Col Perks <wild.fauve@gmail.com>"]
+readme = "README.md"
+packages = [{include = "clojos_common"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+grpcio = "^1.56.2"
+grpcio-tools = "^1.56.2"
+pymonad = "^2.4.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pdbpp = "^0.10.3"
+bpython = "^0.24"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+python_classes = [
+    "*Test",
+    "Test*",
+    "Describe*",
+]
+python_functions = [
+    "test_*",
+    "it_*",
+]
+xfail_strict = true
+log_cli = true
+log_cli_level = 20
+env = [
+]
+testpaths = [
+    "tests",
+    "integration",
+]
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
