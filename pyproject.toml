@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "clojos-common"
-version = "0.1.7"
+version = "0.1.8"
 description = ""
 authors = ["Col Perks <wild.fauve@gmail.com>"]
 readme = "README.md"
@@ -11,6 +11,8 @@ python = "^3.9"
 grpcio = "^1.56.2"
 grpcio-tools = "^1.56.2"
 pymonad = "^2.4.0"
+rich = "^13.5.2"
+pino = "^0.6.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"

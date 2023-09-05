@@ -6,6 +6,8 @@ from enum import Enum
 import rich
 import time
 
+from . import singleton
+
 print_fn = rich.print
 
 
@@ -15,16 +17,32 @@ class LogType(Enum):
     INFO = "info"
 
 
-logging_switch = {
-    LogType.PERF_LOG: True,
-    LogType.DEBUG: True,
-    LogType.INFO: False
-}
+class LogConfig(singleton.Singleton):
+    logging_switch = {
+        0: {LogType.PERF_LOG: True, LogType.DEBUG: True, LogType.INFO: True},
+        1: {LogType.PERF_LOG: True, LogType.DEBUG: False, LogType.INFO: True},
+        2: {LogType.PERF_LOG: False, LogType.DEBUG: False, LogType.INFO: True},
+        3: {LogType.PERF_LOG: False, LogType.DEBUG: False, LogType.INFO: False}}
+
+    def configure(self,
+                  log_level: int = 3) -> None:
+        self.log_level = log_level
+        pass
+
+    def level(self):
+        return self.log_level if hasattr(self, 'log_level') else 3
+
+    def level_features(self):
+        return self.__class__.logging_switch[self.log_level]
 
 
 def log(entry, log_type: LogType = LogType.INFO):
-    if logging_switch[log_type]:
+    if logging_level_features()[log_type]:
         print_fn(entry)
+
+
+def logging_level_features():
+    return LogConfig().level_features()
 
 
 def debug(entry):
